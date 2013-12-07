@@ -1,82 +1,123 @@
 <!DOCTYPE html>
-<!--HTML5 doctype-->
 <html>
 <head>
-<title>Rotten Tomatoes API</title>
-<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<style type="text/css">
-* { -webkit-user-select:none; -webkit-tap-highlight-color:rgba(255, 255, 255, 0); -ms-touch-action:none;} 
-</style>
-	
-<script src='intelxdk.js'></script> 
-<script src='xhr.js'></script>
-
-<script src="aUX_ui.min.js"></script>
-<script src="aUX_web.all.min.js"></script>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-<script src="rottentomatoes.js"></script>
-
-<script type="text/javascript">
-
-
-	var init = function() {};
-	window.addEventListener("load", init, false);
-
-	/* This code prevents users from dragging the page */
-	var preventDefaultScroll = function(event) {
-		event.preventDefault();
-		window.scroll(0, 0);
-		return false;
-	};
-	document.addEventListener('touchmove', preventDefaultScroll, false);
-
-
-	var AMUi="";
-	var onDeviceReady = function() {
-
-		AMUi=new aUX.ui();
-		
-		check_keys();
-		
-		intel.xdk.device.hideSplashScreen();
-		
-	};
-	document.addEventListener("intel.xdk.device.ready", onDeviceReady, false);
-
-</script>
-
-<link rel="stylesheet" type="text/css" href="aUX_ui.css" /> 
-<link rel="stylesheet" type="text/css" href="style.css" /> 
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="app_framework/css/af.ui.min.css">
+  <link rel="stylesheet" type="text/css" href="app_framework/css/icons.min.css">
+  <link rel="stylesheet" type="text/css" href="css/index_main.less.css" class="main-less">
+  <link rel="stylesheet" type="text/css" href="css/mashery.css">
+  <title>Rotten Tomatoes API</title>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;">
+  <style type="text/css">
+    /* Prevent copy paste for all elements except text fields */
+            *  { -webkit-user-select:none; -webkit-tap-highlight-color:rgba(255, 255, 255, 0); }
+            input, textarea  { -webkit-user-select:text; }
+  </style>
+  <script src="intelxdk.js"></script>
+  <script type="text/javascript" language="javascript">
+    function onDeviceReady() {
+            	// Hide splash screen now that the app is ready to run
+            	intel.xdk.device.hideSplashScreen();
+                
+                setTimeout(function () {
+                    $.ui.launch();
+                }, 50);
+                checkKeyValidity();
+            }
+            // Initial event handler to detect when Intel library is ready to roll
+            document.addEventListener("intel.xdk.device.ready", onDeviceReady, false);
+  </script>
+  <script type="application/javascript" src="app_framework/appframework.min.js"></script>
+  <script type="application/javascript" src="app_framework/appframework.ui.min.js"></script>
+  <script type="text/javascript" src="js/api.js"></script>
 </head>
-<body>
 
-	<div title="Rotten Tomatoes API" id="main" class="panel" selected="true">
-		<div id="flash"></div>
-		
-		<div id="header_images">
-			<img id="logo1" src="images/rotten.png" style="width:90px;margin-top:7px;"/>
-			<img id="logo2" src="images/masherymade.png" style="float:right;"/>
-		</div>
-		
-		<p>The Rotten Tomatoes API gives access to Rotten Tomatoes' wealth of movie information, allowing anyone to build applications and widgets enriched with Rotten Tomatoes data.</p>
+<body id="afui">
+  <div class="uwrap" id="content">
+    <div class="upage panel" id="page0" data-header="af-header-0" data-footer="none">
+      <div class="upage-outer">
+        <header class="af-header container-group inner-element uib_w_1" data-uib="app_framework/header" id="af-header-0">
+          <h1>Rotten Tomatoes</h1>
+          <div class="widget-container wrapping-col single-centered"></div>
+          <div class="widget-container content-area horiz-area wrapping-col left"></div>
+          <div class="widget-container content-area horiz-area wrapping-col right"></div>
+        </header>
+        <div class="upage-content">
+          <div class="grid grid-pad urow uib_row_2 row-height-2" data-uib="layout/row">
+            <div class="col uib_col_3 col-0_6-12" data-uib="layout/col">
+              <div class="widget-container content-area vertical-col">
+                <div class="widget uib_w_3 scale-image" data-uib="media/img">
+                  <figure class="figure-align">
+                    <img src="http://content.developer.mashery.com.s3.amazonaws.com/xdk-demos/rottentomatoes/logo.png" id="logo1">
 
-		<p>Visit <a href="http://developer.rottentomatoes.com" target="_blank">developer.rottentomatoes.com</a> to get your free API key today.</p>
+                    <figcaption data-position="bottom"></figcaption>
+                  </figure>
+                </div>
+                <span class="uib_shim"></span>
+              </div>
+            </div>
+            <div class="col uib_col_2 col-0_6-12" data-uib="layout/col">
+              <div class="widget-container content-area wrapping-col right">
+                <div class="widget uib_w_4 scale-image d-margins mashery-img-margins" data-uib="media/img">
+                  <figure class="figure-align">
+                    <img src="http://content.developer.mashery.com.s3.amazonaws.com/xdk-demos/masherymade.png" id="logo2">
 
-				<p style="text-align:center;"><button id="btnUser" ontouchstart="topMovies();">Top Movies</button> <button id="btnUser" ontouchstart="topRentals();">Top DVD Rentals</button></p>
-
-
-		<div id="output">
-			<div class="output-inner" id="rotten-output" style="display:none;">
-				<div class="movies">
-					
-				</div>
-			</div>
-
-
-		</div>
-	</div> 
-	
+                    <figcaption data-position="bottom"></figcaption>
+                  </figure>
+                </div>
+                <span class="uib_shim"></span>
+              </div>
+            </div>
+            <span class="uib_shim"></span>
+          </div>
+          <div class="grid grid-pad urow uib_row_3 row-height-3" data-uib="layout/row">
+            <div class="col uib_col_4 col-0_12-12" data-uib="layout/col">
+              <div class="widget-container content-area vertical-col">
+                <div class="widget uib_w_5" data-uib="media/text">
+                  <div class="widget-container left-receptacle"></div>
+                  <div class="widget-container right-receptacle"></div>
+                  <div>
+                    <p>The Rotten Tomatoes API gives access to Rotten Tomatoes' wealth of movie information, allowing anyone to build applications and widgets enriched with Rotten Tomatoes data.</p>
+                    <p>Visit <a href="http://developer.rottentomatoes.com/" target="_blank">developer.rottentomatoes.com</a> to get your free API key today.</p>
+                  </div>
+                </div>
+                <span class="uib_shim"></span>
+              </div>
+            </div>
+            <span class="uib_shim"></span>
+          </div>
+          <div class="grid urow uib_row_4 row-height-4 btns-padding" data-uib="layout/row">
+            <div class="col uib_col_5 col-0_6-12" data-uib="layout/col">
+              <div class="widget-container content-area vertical-col">
+                <a class="button widget uib_w_6 d-margins" data-uib="app_framework/button" id="openingmovies_btn" onclick="javascript:fetchOpeningMovies();">Opening Movies</a>
+              </div>
+            </div>
+            <div class="col uib_col_7 col-0_6-12" data-uib="layout/col">
+              <div class="widget-container content-area vertical-col">
+                <a class="button widget uib_w_7 d-margins" data-uib="app_framework/button" id="topdvdrent_btn" onclick="javascript:fetchTopRentals();">Top DVD Rentals</a>
+              </div>
+            </div>
+            <span class="uib_shim"></span>
+          </div>
+          <div class="grid grid-pad urow uib_row_5 row-height-5" data-uib="layout/row">
+            <div class="col uib_col_6 col-0_12-12" data-uib="layout/col">
+              <div class="widget-container content-area vertical-col">
+                <div id="rottentomatoes-results-output">
+                  <div class="movies"></div>
+                </div>
+                <span class="uib_shim"></span>
+              </div>
+            </div>
+            <span class="uib_shim"></span>
+          </div>
+        </div>
+        <!-- /upage-content -->
+      </div>
+      <!-- /upage-outer -->
+    </div>
+    <!-- /upage -->
+  </div>
+  <!-- /uwrap -->
 </body>
-
 </html>

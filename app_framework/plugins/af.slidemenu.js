@@ -1,0 +1,9 @@
+/**
+ * Slide menu plugin for App Framework UI
+ * @copyright Intel
+ *
+ */
+!function($){var startX,startY,dx,dy,checking=!1,doMenu=!0,showHide=!1;$.ui.slideSideMenu=!0,$.ui.fixedSideMenuWidth=768;var keepOpen=!1;$.ui.ready(function(){//  $("head").append("<style>#afui #menu {display:block !important}</style>");
+if(!$.os.ie){//ie has the menu at the bottom
+// return;
+var menuState,elems=$("#content, #header, #navbar"),$menu=$("#menu"),max=$("#menu").width(),slideOver=max/3,transTime=$.ui.transitionTime;window.addEventListener("resize",function(){max=$("#menu").width()}),$("#afui").bind("touchstart",function(e){startX=e.touches[0].pageX,startY=e.touches[0].pageY,checking=!1,doMenu=!1,keepOpen=!1,window.innerWidth>=$.ui.fixedSideMenuWidth?(doMenu=!1,keepOpen=!0):doMenu=!0,max=$("#menu").width(),menuState="block"==$menu.css("display")}),$("#afui").bind("touchmove",function(e){if(!$.ui.slideSideMenu||keepOpen)return!0;if(!checking)return checking=!0,doMenu=!1,!0;if(doMenu=!0,doMenu&&(dx=e.touches[0].pageX,dy=e.touches[0].pageY,!(!menuState&&startX>dx||menuState&&dx>startX))){if(Math.abs(dy-startY)>Math.abs(dx-startX))return doMenu=!1,!0;if(dx>max)return!0;showHide=dx-startX>0?2:!1;var thePlace=Math.abs(dx-startX);showHide?transTime=(max-thePlace)/max*numOnly($.ui.transitionTime):(thePlace=max-thePlace,transTime=thePlace/max*numOnly($.ui.transitionTime)),elems.cssTranslate(thePlace+"px,0"),e.preventDefault(),e.stopPropagation(),Math.abs(dx-startX)<slideOver&&(showHide=showHide?!1:2)}}),$("#afui").bind("touchend",function(){doMenu&&checking&&!keepOpen&&$.ui.toggleSideMenu(showHide,null,transTime),checking=!1,doMenu=!1,keepOpen=!1})}})}(af);
