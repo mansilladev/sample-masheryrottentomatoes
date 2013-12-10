@@ -3,7 +3,7 @@
     "title": "Mashery Rotten Tomatoes API",
     "tooltip": "A demo app that features the Rotten Tomatoes API, part of the Mashery API Network",
     "description": "This demo app provides a way to see the Rotten Tomatoes API in action.",    
-    "articleUrl": "",    
+    "articleUrl": "html5/articles/integrating-apis-with-xdk-rottentomatoes-sample-app",    
     "highlights": ["App Framework", "Web Services API"],
     "keywords": ["App Framework", "Web Services API"],
     "relname": "4.0.0",

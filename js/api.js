@@ -1,6 +1,6 @@
 // ********************SET YOUR API KEY HERE**********************
 // Insert your Rotten Tomatoes API Key here. README for more info.
-var apiKey = 'PLACE-YOUR-API-KEY-HERE';
+var apiKey = 'yhwsbsb6mvfdadswm5hx37wr';
 // ***************************************************************
 
 // Check if valid API Key
@@ -49,7 +49,7 @@ function fetchOpeningMoviesCallback(payload) {
 	}
 	var movies = data.movies;
 	$("#rottentomatoes-results-output").show();
-	$("#rottentomatoes-results-output .movies").html('<p class="center"><strong>Top Movies</strong></p>');
+	$("#rottentomatoes-results-output").html('<p class="center"><strong>Top Movies</strong></p>');
 
 	$.each(movies, function(index, movie) {
 		var html = '<hr />';
@@ -63,7 +63,7 @@ function fetchOpeningMoviesCallback(payload) {
 			html += ' ' + movie.ratings.critics_score + '%';
 		}
 		html += '<p><a href="' + movie.links.alternate + '" target="_blank">' + movie.title + '</a></p></div>';
-		$("#rottentomatoes-results-output .movies").append(html);
+		$("#rottentomatoes-results-output").append(html);
 	});
 }
 
@@ -89,7 +89,7 @@ function fetchTopRentalsCallback(payload) {
 	}
 	var movies = data.movies;
 	$("#rottentomatoes-results-output").show();
-	$("#rottentomatoes-results-output .movies").html('<p class="center"><strong>Top DVD Rentals</strong></p>');
+	$("#rottentomatoes-results-output").html('<p class="center"><strong>Top DVD Rentals</strong></p>');
 
 	$.each(movies, function(index, movie) {
 		var html = '<hr />';
@@ -103,6 +103,6 @@ function fetchTopRentalsCallback(payload) {
 			html += ' ' + movie.ratings.critics_score + '%';
 		}
 		html += '<p><a href="' + movie.links.alternate + '" target="_blank">' + movie.title + '</a></p></div>';
-		$("#rottentomatoes-results-output .movies").append(html);
+		$("#rottentomatoes-results-output").append(html);
 	});
 }
