@@ -1,6 +1,6 @@
 // ********************SET YOUR API KEY HERE**********************
 // Insert your Rotten Tomatoes API Key here. README for more info.
-var apiKey = 'yhwsbsb6mvfdadswm5hx37wr';
+var apiKey = 'PLACE-YOUR-API-KEY-HERE';
 // ***************************************************************
 
 // Check if valid API Key
